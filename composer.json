@@ -1,6 +1,7 @@
 {
     "name": "ahmed1amen/omnipay-banquemisr",
     "description": "Banque Misr Payment Integration",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
@@ -12,9 +13,12 @@
         "omnipay/common": "^3"
 
     },
-
+    "autoload": {
+        "psr-4": { "Omnipay\\BanqueMisr\\" : "src/" }
+    },
     "require-dev" : {
-        "omnipay/tests": "^3"
+        "omnipay/tests": "^3",
+        "ext-json": "*",
+        "symfony/var-dumper": "^5.1"
     }
-
 }
