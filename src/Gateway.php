@@ -3,8 +3,10 @@
 namespace Omnipay\BanqueMisr;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Common\Helper;
 use Omnipay\Common\Message\NotificationInterface;
 use Omnipay\Common\Message\RequestInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * @method NotificationInterface acceptNotification(array $options = array())
@@ -31,6 +33,70 @@ class Gateway extends AbstractGateway
     public function getDefaultParameters()
     {
 
+        return [
+            'merchantId'=>'',
+            'apiUsername'=>'',
+            'apiPassword'=>'',
+            'version'=>'57',
+            'currency'=>'USD',
+            'testMode'=>false
+        ];
+    }
+
+    /**
+     * Session Controller
+     * @link https://banquemisr.gateway.mastercard.com/api/documentation/apiDocumentation/rest-json/version/57/operation/Session%3a%20Create%20Session.html?locale=en_US
+     * @param array $parameters
+     */
+    public function session(array $parameters = array())
+    {
+        return $this->createRequest('\Omnipay\BanqueMisr\Message\SessionRequest', $parameters);
+
+    }
+
+    public function getVersion()
+    {
+        return $this->getParameter('version');
+    }
+    public function setVersion($value)
+    {
+        return $this->setParameter('version', $value);
+    }
+    public function getApiUsername()
+    {
+        return $this->getParameter('apiUsername');
+    }
+    public function setApiUsername($value)
+    {
+        return $this->setParameter('apiUsername', $value);
+    }
+    public function getApiPassword()
+    {
+        return $this->getParameter('apiPassword');
+    }
+    public function setApiPassword($value)
+    {
+        return $this->setParameter('apiPassword', $value);
+    }
+    public function getMerchantId()
+    {
+        return $this->getParameter('merchantId');
+    }
+    public function setMerchantId($value)
+    {
+        return $this->setParameter('merchantId',$value);
+    }
+
+    /**
+     * Initialize this gateway with default parameters
+     *
+     * @param  array $parameters
+     * @return $this
+     */
+    public function initialize(array $parameters = array())
+    {
+        parent::initialize($parameters);
+
         $config_array = [
             'testMode' => false,
             'settings' => [
@@ -39,60 +105,18 @@ class Gateway extends AbstractGateway
                 'hostedSessionUrl' => Constants::BASE_URL . '/form',
                 'gatewayUrl' => Constants::BASE_URL . '/api/rest',
                 'merchantId' => $this->getMerchantId(),
-                'apiUsername' => "merchant." . $this->getMerchantId(),
-                'password' => Constants::getPassword(),
+                'apiUsername' => $this->getApiUsername(),
+                'password' => $this->getApiPassword(),
                 'debug' => 'TRUE',
                 'version' => $this->getVersion(),
                 'currency' => $this->getCurrency(),
                 'certificatePath' => '',
-                //IMPORTANT: Ensure that you set these flags to TRUE in Production. The Test certificate is self signed and doesn't really need these to be set in Development.
-                // By default they are set to PRODUCTION env values
                 'verifyPeer' => TRUE,
                 'verifyHost' => 1
             ]
         ];
         Constants::__constructStatic($config_array['settings']);
-        return $config_array;
+        return $this;
+
     }
-
-
-    public function getConfig()
-    {
-        return $this->getParameter('config');
-    }
-
-    public function setConfig($value)
-    {
-
-        return $this->setParameter('config', $value);
-    }
-
-
-    public function getVersion()
-    {
-        return $this->getParameter('version');
-    }
-
-    public function setVersion($value)
-    {
-        return $this->setParameter('version', $value);
-    }
-
-    public function getApiUsername()
-    {
-
-        return $this->getParameter('apiUsername');
-    }
-
-    public function getMerchantId()
-    {
-        return $this->getParameter('merchantId');
-    }
-
-    public function setMerchantId()
-    {
-        return $this->setParameter('merchantId');
-    }
-
-
 }

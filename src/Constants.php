@@ -19,7 +19,6 @@ class Constants
     private static $hostedSessionUrl = "";
     private static $certificatePath = "";
     private static $certificateAuth = FALSE;
-    //NOTE: THESE VALUES ARE SET FOR PRODUCTION ENV, for DEVELOPMENT mode settings - follow the authentication section in the README guide.
     private static $certificateVerifyPeer = TRUE;
     private static $certificateVerifyHost = 1;
 
