@@ -16,11 +16,11 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  * @method RequestInterface purchase(array $options = array())
  * @method RequestInterface completePurchase(array $options = array())
  * @method RequestInterface refund(array $options = array())
- * @method RequestInterface fetchTransaction(array $options = [])
  * @method RequestInterface void(array $options = array())
  * @method RequestInterface createCard(array $options = array())
  * @method RequestInterface updateCard(array $options = array())
  * @method RequestInterface deleteCard(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
  */
 class Gateway extends AbstractGateway
 {
@@ -34,12 +34,12 @@ class Gateway extends AbstractGateway
     {
 
         return [
-            'merchantId'=>'',
-            'apiUsername'=>'',
-            'apiPassword'=>'',
-            'version'=>'57',
-            'currency'=>'USD',
-            'testMode'=>false
+            'merchantId' => '',
+            'apiUsername' => '',
+            'apiPassword' => '',
+            'version' => '57',
+            'currency' => 'USD',
+            'testMode' => false
         ];
     }
 
@@ -47,50 +47,78 @@ class Gateway extends AbstractGateway
      * Session Controller
      * @link https://banquemisr.gateway.mastercard.com/api/documentation/apiDocumentation/rest-json/version/57/operation/Session%3a%20Create%20Session.html?locale=en_US
      * @param array $parameters
+     *
      */
-    public function session(array $parameters = array())
+    public function session(array $parameters = array()): \Omnipay\BanqueMisr\Message\SessionRequest
     {
+
         return $this->createRequest('\Omnipay\BanqueMisr\Message\SessionRequest', $parameters);
 
     }
+
+
+    /**
+     * Retrieve Order
+     * @link /https://banquemisr.gateway.mastercard.com/api/documentation/apiDocumentation/rest-json/version/latest/operation/Transaction%3a%20%20Retrieve%20Order.html?locale=en_US
+     * @param array $parameters
+     *
+     */
+    public function order(array $parameters = array()): \Omnipay\BanqueMisr\Message\RetrieveOrderRequest
+    {
+
+        return $this->createRequest('\Omnipay\BanqueMisr\Message\RetrieveOrderRequest', $parameters);
+
+    }
+
+
+
+
+
 
     public function getVersion()
     {
         return $this->getParameter('version');
     }
+
     public function setVersion($value)
     {
         return $this->setParameter('version', $value);
     }
+
     public function getApiUsername()
     {
         return $this->getParameter('apiUsername');
     }
+
     public function setApiUsername($value)
     {
         return $this->setParameter('apiUsername', $value);
     }
+
     public function getApiPassword()
     {
         return $this->getParameter('apiPassword');
     }
+
     public function setApiPassword($value)
     {
         return $this->setParameter('apiPassword', $value);
     }
+
     public function getMerchantId()
     {
         return $this->getParameter('merchantId');
     }
+
     public function setMerchantId($value)
     {
-        return $this->setParameter('merchantId',$value);
+        return $this->setParameter('merchantId', $value);
     }
 
     /**
      * Initialize this gateway with default parameters
      *
-     * @param  array $parameters
+     * @param array $parameters
      * @return $this
      */
     public function initialize(array $parameters = array())
@@ -118,5 +146,10 @@ class Gateway extends AbstractGateway
         Constants::__constructStatic($config_array['settings']);
         return $this;
 
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
     }
 }
