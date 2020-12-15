@@ -11,28 +11,28 @@ class GatewayTest extends GatewayTestCase
 {
     public function testSesstion()
     {
+        /**
+         * @var $gateway  BanqueMisr\Gateway
+         * */
         $gateway = Omnipay::create('BanqueMisr');
 
-        $gateway->setConfig([
-            'testMode' => false,
-            'settings' => [
-                'merchantId' => 'TESTMEDIAGATE_EG',
-                'apiUsername' => "merchant." . 'TESTMEDIAGATE_EG',
-                'password' => '123123123123',
-                'debug' => 'TRUE',
-                'version' =>'57',
-                'currency' => 'USD',
-                'certificatePath' =>'',
-                //IMPORTANT: Ensure that you set these flags to TRUE in Production. The Test certificate is self signed and doesn't really need these to be set in Development.
-                // By default they are set to PRODUCTION env values
-                'verifyPeer' =>  TRUE,
-                'verifyHost' => 1
-            ]
+        $gateway->initialize([
+//            'merchantId' => 'TESTREV_INST_6',
+//            'apiUsername' => 'merchant.TESTREV_INST_6',
+//            'apiPassword' => '1986113b27bfe589798fe160cdff4cc7',
+
+            'merchantId' => 'TESTMEDIAGATE_EG',
+            'apiUsername' => 'merchant.TESTMEDIAGATE_EG',
+            'apiPassword' => 'b78d20b909be0b4b7d8c5d3c431ef163',
+
+            'version' => '57',
+            'currency' => 'EGP',
+            'testMode' => false
 
 
         ]);
-
-        dd(   $gateway->getConfig());
+            $resp= $gateway->order()->setTransactionReference('bc3224e6-ca4e-4307-902e-3e18a0b71e04')->send();
+        dd($resp->isSuccessful());
 
         $gateway->setTestMode(false);
 
@@ -45,6 +45,6 @@ class GatewayTest extends GatewayTestCase
     }
 
 
-    
+
 
 }

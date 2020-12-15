@@ -3,12 +3,12 @@
 namespace Omnipay\BanqueMisr\Message;
 
 
-class Response extends AbstractResponse
+class RetrieveOrderResponse extends AbstractResponse
 {
 
     public function getMessage()
     {
-
+        $this->request->getData();
         return $this->data;
     }
 
