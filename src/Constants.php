@@ -16,22 +16,22 @@ class Constants
     private static $sessionJsUrl = "";
     private static $checkoutJsUrl = "";
     private static $checkoutSessionUrl = "";
-    private static $retrieveOrderUrl = "";
+    private static $transactionUrl = "";
 
     /**
      * @return string
      */
-    public static function getRetrieveOrderUrl(): string
+    public static function geTransactionUrl(): string
     {
-        return self::$retrieveOrderUrl;
+        return self::$transactionUrl;
     }
 
     /**
-     * @param string $retrivieOrderUrl
+     * @param string $transactionUrl
      */
-    public static function setRetrivieOrderUrl(string $retrivieOrderUrl): void
+    public static function setTransactionUrl(string $transactionUrl): void
     {
-        self::$retrivieOrderUrl = $retrivieOrderUrl;
+        self::$transactionUrl = $transactionUrl;
     }
     private static $pkiBaseUrl = "";
     private static $hostedSessionUrl = "";
@@ -338,7 +338,7 @@ class Constants
         self::$checkoutSessionUrl = self::$gatewayUrl . '/version/' . self::$version . '/merchant/' . self::$merchantId . '/session';
         self::$checkoutJsUrl = self::$gatewayBaseUrl . '/checkout/version/' . self::$version . '/checkout.js';
 
-        self::$retrieveOrderUrl = self::$gatewayUrl . '/version/' . self::$version . '/merchant/' . self::$merchantId . '/order/';
+        self::$transactionUrl = self::$gatewayUrl . '/version/' . self::$version . '/merchant/' . self::$merchantId . '/order/';
 
         if (array_key_exists("certificatePath", $configArray) && !empty($configArray["certificatePath"])) {
             self::$certificatePath = $configArray["certificatePath"];

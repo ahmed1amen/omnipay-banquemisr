@@ -1,6 +1,7 @@
 <?php
 
 namespace Omnipay\BanqueMisr\Message;
+
 use Omnipay\BanqueMisr\Constants;
 
 class SessionRequest extends AbstractRequest
@@ -27,6 +28,7 @@ class SessionRequest extends AbstractRequest
     {
         return $this->getParameter('extradata');
     }
+
     /**
      * Sets Extra Data To The Session Request.
      *
@@ -38,13 +40,14 @@ class SessionRequest extends AbstractRequest
         return $this->setParameter('extradata', $value);
     }
 
-    public function getOrderNotificationUrl ()
+    public function getOrderNotificationUrl()
     {
         return $this->getParameter('ordernotificationurl');
     }
+
     /**
      * Sets The URL to which the gateway will send Webhook notifications when an order is created or updated.....
-    To receive notifications at this URL, you must enable Webhook notifications in Merchant Administration. Ensure the URL is HTTPS
+     * To receive notifications at this URL, you must enable Webhook notifications in Merchant Administration. Ensure the URL is HTTPS
      *
      * @param string $value
      * @return $this
@@ -65,16 +68,16 @@ class SessionRequest extends AbstractRequest
         $this->validate('interaction');
         return array_merge([
             "apiOperation" => "CREATE_CHECKOUT_SESSION",
-            "interaction" =>$this->getInteraction(),
+            "interaction" => $this->getInteraction(),
             "order" => [
                 "id" => $this->getTransactionReference(),
                 "amount" => $this->getAmount(),
-                "notificationUrl" => $this->getOrderNotificationUrl()??'',
+                "notificationUrl" => $this->getOrderNotificationUrl() ?? null,
                 "currency" => $this->getCurrency()
             ]
         ],
 
-            $this->getExtraData()??[]
+            $this->getExtraData() ?? []
 
 
         );

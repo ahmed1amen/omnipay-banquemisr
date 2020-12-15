@@ -1,13 +1,8 @@
 <?php
 
 namespace Omnipay\BanqueMisr\Message;
-
-use Exception;
 use Omnipay\BanqueMisr\Constants;
-use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
-use phpDocumentor\Reflection\Types\This;
-use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 
 

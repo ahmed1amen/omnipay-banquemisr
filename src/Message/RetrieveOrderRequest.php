@@ -4,6 +4,8 @@ namespace Omnipay\BanqueMisr\Message;
 
 use Omnipay\BanqueMisr\Constants;
 use Omnipay\Common\Exception\InvalidRequestException;
+use Omnipay\BanqueMisr\Message\AbstractRequest;
+
 
 class RetrieveOrderRequest extends AbstractRequest
 {
@@ -24,13 +26,15 @@ class RetrieveOrderRequest extends AbstractRequest
 
 
     /**
-     * {@inheritdoc}
+     * {
+     * @inheritdoc
+     * }
      */
     public function sendData($data)
     {
         $httpResponse = $this->httpClient->request(
             $this->getHttpMethod(),
-            Constants::getRetrieveOrderUrl() . $this->getTransactionReference(),
+            Constants::geTransactionUrl() . $this->getTransactionReference(),
             $this->getHeaders(),
             );
 

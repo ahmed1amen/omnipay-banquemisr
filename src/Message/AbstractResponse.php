@@ -34,7 +34,6 @@ abstract class AbstractResponse extends BaseAbstractResponse
 
     public function getMessage()
     {
-
         return $this->data;
     }
 

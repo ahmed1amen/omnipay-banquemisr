@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  * @method NotificationInterface acceptNotification(array $options = array())
  * @method RequestInterface authorize(array $options = array())
  * @method RequestInterface completeAuthorize(array $options = array())
- * @method RequestInterface capture(array $options = array())
  * @method RequestInterface purchase(array $options = array())
  * @method RequestInterface completePurchase(array $options = array())
  * @method RequestInterface refund(array $options = array())
@@ -71,9 +70,17 @@ class Gateway extends AbstractGateway
     }
 
 
+    /**
+     * Capture
+     * @link /https://banquemisr.gateway.mastercard.com/api/documentation/apiDocumentation/rest-json/version/latest/operation/Transaction%3a%20%20Retrieve%20Order.html?locale=en_US
+     * @param array $options
+     * @return Message\CaptureRequest
+     */
+    public function capture(array $options = array()): \Omnipay\BanqueMisr\Message\CaptureRequest
+    {
+        return $this->createRequest('\Omnipay\BanqueMisr\Message\CaptureRequest', $options);
 
-
-
+    }
 
     public function getVersion()
     {
