@@ -5,6 +5,7 @@ use Omnipay\BanqueMisr\Constants;
 
 class SessionRequest extends AbstractRequest
 {
+
     public function getInteraction()
     {
         return $this->getParameter('interaction');

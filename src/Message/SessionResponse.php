@@ -6,6 +6,7 @@ namespace Omnipay\BanqueMisr\Message;
 class SessionResponse extends AbstractResponse
 {
 
+
     public function getMessage()
     {
         $this->request->getData();

@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  * @method RequestInterface createCard(array $options = array())
  * @method RequestInterface updateCard(array $options = array())
  * @method RequestInterface deleteCard(array $options = array())
+ * @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
  */
 class Gateway extends AbstractGateway
 {
@@ -145,5 +146,10 @@ class Gateway extends AbstractGateway
         Constants::__constructStatic($config_array['settings']);
         return $this;
 
+    }
+
+    public function __call(string $name, array $arguments)
+    {
+        // TODO: Implement @method \Omnipay\Common\Message\RequestInterface fetchTransaction(array $options = [])
     }
 }

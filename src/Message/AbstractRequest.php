@@ -10,6 +10,7 @@ use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\HttpFoundation\Request as HttpRequest;
 
 
+
 abstract class AbstractRequest extends BaseAbstractRequest
 
 {

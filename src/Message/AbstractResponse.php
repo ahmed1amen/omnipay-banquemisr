@@ -6,6 +6,7 @@ use Omnipay\Common\Message\AbstractResponse as BaseAbstractResponse;
 use Omnipay\Common\Message\RequestInterface;
 use phpDocumentor\Reflection\Types\This;
 
+
 abstract class AbstractResponse extends BaseAbstractResponse
 {
 
