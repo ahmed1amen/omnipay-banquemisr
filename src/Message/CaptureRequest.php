@@ -52,7 +52,6 @@ class CaptureRequest extends AbstractRequest
             $this->getHeaders(),
             json_encode($data, true)
         );
-
         return $this->createResponse($httpResponse->getBody()->getContents(), $httpResponse->getHeaders());
 
     }
